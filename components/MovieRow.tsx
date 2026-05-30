@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import MovieCard from "./MovieCard";
-import type { MyMovieData } from "@/lib/tmdb";
+import type { MyMovieData } from "@/lib/tmdb-client";
 
 interface MovieRowProps {
   title: string;

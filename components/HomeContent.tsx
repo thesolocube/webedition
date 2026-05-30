@@ -4,7 +4,7 @@ import MovieRow from "./MovieRow";
 import ContinueWatchingRow from "./ContinueWatchingRow";
 import { useWatchHistory } from "@/hooks/useWatchHistory";
 import { useAuth } from "@/hooks/useAuth";
-import type { MyMovieData } from "@/lib/tmdb";
+import type { MyMovieData } from "@/lib/tmdb-client";
 
 interface HomeContentProps {
   trending: MyMovieData[];

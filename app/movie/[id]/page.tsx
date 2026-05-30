@@ -1,9 +1,9 @@
 import MediaDetailLoader from "@/components/MediaDetailLoader";
-import {
-  getMovieDetails,
-  getMovieCredits,
-  getMovieVideos,
-} from "@/lib/tmdb";
+import HomeErrorFallback from "@/components/HomeErrorFallback";
+import Layout from "@/components/Layout";
+import { TmdbError, getMovieDetails, getMovieCredits, getMovieVideos } from "@/lib/tmdb";
+
+export const dynamic = "force-dynamic";
 
 interface PageProps {
   params: { id: string };
@@ -12,19 +12,39 @@ interface PageProps {
 export default async function MoviePage({ params }: PageProps) {
   const id = parseInt(params.id, 10);
 
-  const [details, credits, videos] = await Promise.all([
-    getMovieDetails(id),
-    getMovieCredits(id),
-    getMovieVideos(id),
-  ]);
+  if (!Number.isFinite(id) || id <= 0) {
+    return (
+      <Layout>
+        <HomeErrorFallback message="Identifiant de film invalide." />
+      </Layout>
+    );
+  }
 
-  return (
-    <MediaDetailLoader
-      mediaType="movie"
-      id={id}
-      details={details}
-      cast={credits.cast}
-      videos={videos.results}
-    />
-  );
+  try {
+    const [details, credits, videos] = await Promise.all([
+      getMovieDetails(id),
+      getMovieCredits(id),
+      getMovieVideos(id),
+    ]);
+
+    return (
+      <MediaDetailLoader
+        mediaType="movie"
+        id={id}
+        details={details}
+        cast={credits.cast}
+        videos={videos.results}
+      />
+    );
+  } catch (error) {
+    const message =
+      error instanceof TmdbError
+        ? error.message
+        : "Impossible de charger ce film.";
+    return (
+      <Layout>
+        <HomeErrorFallback message={message} />
+      </Layout>
+    );
+  }
 }

@@ -6,8 +6,8 @@ import Layout from "@/components/Layout";
 import MovieCard from "@/components/MovieCard";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useSpeechToText } from "@/hooks/useSpeechToText";
-import { searchMulti, type MyMovieData } from "@/lib/tmdb";
-import { Mic, Search, Loader2 } from "lucide-react";
+import type { MyMovieData } from "@/lib/tmdb-client";
+import { Mic, Search, Loader2, AlertTriangle } from "lucide-react";
 
 function SearchContent() {
   const searchParams = useSearchParams();
@@ -15,6 +15,7 @@ function SearchContent() {
   const [query, setQuery] = useState(initialQuery);
   const [results, setResults] = useState<MyMovieData[]>([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const debouncedQuery = useDebounce(query, 500);
 
@@ -28,13 +29,25 @@ function SearchContent() {
   useEffect(() => {
     if (!debouncedQuery.trim()) {
       setResults([]);
+      setError(null);
       return;
     }
 
     setLoading(true);
-    searchMulti(debouncedQuery)
-      .then(setResults)
-      .catch(console.error)
+    setError(null);
+
+    fetch(`/api/search?q=${encodeURIComponent(debouncedQuery)}`)
+      .then(async (res) => {
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.error || "Recherche indisponible.");
+        }
+        setResults(data.results ?? []);
+      })
+      .catch((err: Error) => {
+        setResults([]);
+        setError(err.message);
+      })
       .finally(() => setLoading(false));
   }, [debouncedQuery]);
 
@@ -66,6 +79,13 @@ function SearchContent() {
         )}
       </div>
 
+      {error && (
+        <div className="flex items-center gap-2 text-amber-200 bg-amber-900/30 border border-amber-700/50 rounded px-4 py-3 mb-6 max-w-2xl">
+          <AlertTriangle className="w-5 h-5 flex-shrink-0" />
+          <p className="text-sm">{error}</p>
+        </div>
+      )}
+
       {loading && (
         <div className="flex items-center gap-2 text-gray-400">
           <Loader2 className="w-5 h-5 animate-spin" />
@@ -73,7 +93,7 @@ function SearchContent() {
         </div>
       )}
 
-      {!loading && debouncedQuery && results.length === 0 && (
+      {!loading && !error && debouncedQuery && results.length === 0 && (
         <p className="text-gray-400">Aucun résultat pour &quot;{debouncedQuery}&quot;</p>
       )}
 

@@ -6,7 +6,7 @@ import Layout from "@/components/Layout";
 import MovieCard from "@/components/MovieCard";
 import { useAuth } from "@/hooks/useAuth";
 import { subscribeFavorites } from "@/lib/favorites";
-import type { MyMovieData } from "@/lib/tmdb";
+import type { MyMovieData } from "@/lib/tmdb-client";
 import { List } from "lucide-react";
 
 export default function MyListPage() {

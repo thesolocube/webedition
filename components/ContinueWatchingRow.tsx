@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Play } from "lucide-react";
-import { getImageUrl } from "@/lib/tmdb";
+import { getImageUrl } from "@/lib/tmdb-client";
 import { getResumeHref, type WatchProgress } from "@/lib/watchHistory";
 
 interface ContinueWatchingRowProps {

@@ -18,7 +18,7 @@ import {
   type Episode,
   type Video,
   type MyMovieData,
-} from "@/lib/tmdb";
+} from "@/lib/tmdb-client";
 
 interface DetailPageProps {
   mediaType: "movie" | "tv";

@@ -10,7 +10,7 @@ import {
   Unsubscribe,
 } from "firebase/firestore";
 import { getFirebaseDb } from "./firebase";
-import type { MyMovieData } from "./tmdb";
+import type { MyMovieData } from "./tmdb-types";
 
 export async function loadFavorites(userId: string): Promise<MyMovieData[]> {
   const db = getFirebaseDb();

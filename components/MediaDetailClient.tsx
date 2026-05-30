@@ -3,7 +3,7 @@
 import { Suspense } from "react";
 import Layout from "@/components/Layout";
 import DetailPage from "@/components/DetailPage";
-import type { CastMember, Season, Video } from "@/lib/tmdb";
+import type { CastMember, Season, Video } from "@/lib/tmdb-client";
 
 interface MediaDetailClientProps {
   mediaType: "movie" | "tv";

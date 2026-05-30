@@ -1,4 +1,4 @@
-import type { MyMovieData } from "./tmdb";
+import type { MyMovieData } from "./tmdb-types";
 import { addToContinueWatching } from "./continueWatching";
 
 export interface WatchProgress extends MyMovieData {

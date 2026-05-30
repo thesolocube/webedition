@@ -3,8 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import type { MyMovieData } from "@/lib/tmdb";
-import { getImageUrl } from "@/lib/tmdb";
+import type { MyMovieData } from "@/lib/tmdb-client";
+import { getImageUrl } from "@/lib/tmdb-client";
 
 interface MovieCardProps {
   movie: MyMovieData;

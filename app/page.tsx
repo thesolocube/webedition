@@ -1,27 +1,21 @@
 import Layout from "@/components/Layout";
 import Hero from "@/components/Hero";
 import HomeContent from "@/components/HomeContent";
-import {
-  getTrending,
-  getPopularMovies,
-  getUpcomingMovies,
-  discoverByGenre,
-  GENRE_SECTIONS,
-} from "@/lib/tmdb";
+import HomeErrorFallback from "@/components/HomeErrorFallback";
+import { loadHomePageData } from "@/lib/tmdb";
+
+export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const [trending, popular, upcoming] = await Promise.all([
-    getTrending(),
-    getPopularMovies(),
-    getUpcomingMovies(),
-  ]);
+  const { trending, popular, upcoming, genreSections, error } = await loadHomePageData();
 
-  const genreSections = await Promise.all(
-    GENRE_SECTIONS.map(async (genre) => ({
-      label: genre.label,
-      movies: await discoverByGenre(genre.id),
-    }))
-  );
+  if (error) {
+    return (
+      <Layout>
+        <HomeErrorFallback message={error} />
+      </Layout>
+    );
+  }
 
   const heroMovie = trending[0];
 

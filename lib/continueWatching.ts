@@ -13,7 +13,7 @@ import {
   Unsubscribe,
 } from "firebase/firestore";
 import { getFirebaseDb } from "./firebase";
-import type { MyMovieData } from "./tmdb";
+import type { MyMovieData } from "./tmdb-types";
 import type { WatchProgress } from "./watchHistory";
 
 const MAX_ITEMS = 10;

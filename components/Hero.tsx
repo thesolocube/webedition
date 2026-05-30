@@ -5,8 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Play, Info } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
-import type { MyMovieData } from "@/lib/tmdb";
-import { getImageUrl } from "@/lib/tmdb";
+import type { MyMovieData } from "@/lib/tmdb-client";
+import { getImageUrl } from "@/lib/tmdb-client";
 import { getLoginRedirectUrl } from "@/lib/watchHistory";
 
 interface HeroProps {

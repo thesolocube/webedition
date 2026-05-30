@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import type { CastMember, Season, Video } from "@/lib/tmdb";
+import type { CastMember, Season, Video } from "@/lib/tmdb-client";
 
 const MediaDetailClient = dynamic(() => import("@/components/MediaDetailClient"), {
   ssr: false,

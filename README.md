@@ -32,7 +32,15 @@ Dans **Vercel ? Project ? Settings ? Environment Variables**, ajoutez :
 |----------|-------------|
 | `TMDB_API_KEY` | Cle API TMDB (obligatoire) |
 | `TMDB_BASE_URL` | `https://api.themoviedb.org/3` (optionnel) |
-| `NEXT_PUBLIC_FIREBASE_*` | Configuration Firebase |
+| `NEXT_PUBLIC_FIREBASE_API_KEY` | Cle API Web Firebase |
+| `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN` | `{project}.firebaseapp.com` |
+| `NEXT_PUBLIC_FIREBASE_PROJECT_ID` | ID projet Firebase |
+| `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` | `{project}.firebasestorage.app` |
+| `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` | Sender ID |
+| `NEXT_PUBLIC_FIREBASE_APP_ID` | App ID Web |
+| `NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID` | Analytics (optionnel) |
+
+**Important Firebase :** les variables `NEXT_PUBLIC_*` sont injectees au **build**. Apres les avoir ajoutees sur Vercel, faites un **Redeploy** complet. Sinon vous obtiendrez `auth/invalid-api-key`.
 
 Puis **Redeploy** le projet. Sans `TMDB_API_KEY`, l'accueil affiche un message d'erreur au lieu d'un crash 404.
 

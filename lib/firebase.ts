@@ -3,16 +3,14 @@
 import { initializeApp, getApps, FirebaseApp } from "firebase/app";
 import { getAuth, Auth } from "firebase/auth";
 import { getFirestore, Firestore } from "firebase/firestore";
+import { getFirebaseConfig, isFirebaseConfigured, getFirebaseConfigErrorMessage } from "./firebase-env";
 
-const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
-};
+export {
+  isFirebaseConfigured,
+  getFirebaseConfigErrorMessage,
+  getMissingFirebaseEnvVars,
+  FIREBASE_ENV_VARS,
+} from "./firebase-env";
 
 let app: FirebaseApp | undefined;
 let auth: Auth | undefined;
@@ -24,10 +22,21 @@ function assertClient() {
   }
 }
 
+function assertConfigured() {
+  if (!isFirebaseConfigured()) {
+    throw new Error(
+      getFirebaseConfigErrorMessage() ??
+        "Configuration Firebase manquante. Ajoutez les variables NEXT_PUBLIC_FIREBASE_* sur Vercel puis redéployez."
+    );
+  }
+}
+
 export function getFirebaseApp(): FirebaseApp {
   assertClient();
+  assertConfigured();
+
   if (!getApps().length) {
-    app = initializeApp(firebaseConfig);
+    app = initializeApp(getFirebaseConfig());
   } else {
     app = getApps()[0];
   }
@@ -36,6 +45,8 @@ export function getFirebaseApp(): FirebaseApp {
 
 export function getFirebaseAuth(): Auth {
   assertClient();
+  assertConfigured();
+
   if (!auth) {
     auth = getAuth(getFirebaseApp());
   }
@@ -44,6 +55,8 @@ export function getFirebaseAuth(): Auth {
 
 export function getFirebaseDb(): Firestore {
   assertClient();
+  assertConfigured();
+
   if (!db) {
     db = getFirestore(getFirebaseApp());
   }

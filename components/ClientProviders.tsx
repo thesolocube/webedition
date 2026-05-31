@@ -1,5 +1,6 @@
 "use client";
 
+import FirebaseConfigGuard from "@/components/FirebaseConfigGuard";
 import { AuthProvider } from "@/hooks/useAuth";
 
 export default function ClientProviders({
@@ -7,5 +8,9 @@ export default function ClientProviders({
 }: {
   children: React.ReactNode;
 }) {
-  return <AuthProvider>{children}</AuthProvider>;
+  return (
+    <FirebaseConfigGuard>
+      <AuthProvider>{children}</AuthProvider>
+    </FirebaseConfigGuard>
+  );
 }

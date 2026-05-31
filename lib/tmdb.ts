@@ -29,7 +29,7 @@ function getTmdbApiKey(): string {
   const key = process.env.TMDB_API_KEY?.trim();
   if (!key) {
     throw new TmdbError(
-      "TMDB_API_KEY non configurée. Ajoutez-la dans Vercel → Settings → Environment Variables.",
+      "TMDB_API_KEY non configurée. Ajoutez-la dans Netlify → Site configuration → Environment Variables.",
       503
     );
   }

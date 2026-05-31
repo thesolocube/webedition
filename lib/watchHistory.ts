@@ -1,3 +1,5 @@
+"use client";
+
 import type { MyMovieData } from "./tmdb-types";
 import { addToContinueWatching } from "./continueWatching";
 

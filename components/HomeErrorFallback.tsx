@@ -17,7 +17,7 @@ export default function HomeErrorFallback({ message }: HomeErrorFallbackProps) {
         </h2>
         <p className="text-gray-400 text-sm mb-6">{message}</p>
         <p className="text-gray-500 text-xs mb-6">
-          Sur Vercel, ajoutez <code className="text-gray-300">TMDB_API_KEY</code> dans Settings →
+          Sur Netlify, ajoutez <code className="text-gray-300">TMDB_API_KEY</code> dans Site configuration →
           Environment Variables, puis redéployez.
         </p>
         <Link

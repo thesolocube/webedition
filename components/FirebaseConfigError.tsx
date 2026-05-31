@@ -17,7 +17,7 @@ export default function FirebaseConfigError() {
         <p className="text-gray-400 text-sm mb-6">
           L&apos;application ne peut pas se connecter à Firebase. Les variables{" "}
           <code className="text-gray-300">NEXT_PUBLIC_FIREBASE_*</code> sont absentes,
-          invalides ou n&apos;ont pas été prises en compte au build Vercel.
+          invalides ou n&apos;ont pas été prises en compte au build Netlify.
         </p>
 
         {missing.length > 0 && (
@@ -32,18 +32,18 @@ export default function FirebaseConfigError() {
 
         <div className="text-left text-xs text-gray-500 space-y-2 mb-6">
           <p>1. Console Firebase → Paramètres → Vos applications → Web</p>
-          <p>2. Vercel → Settings → Environment Variables</p>
+          <p>2. Netlify → Site configuration → Environment Variables</p>
           <p>3. Ajoutez toutes les variables NEXT_PUBLIC_FIREBASE_*</p>
           <p>4. Redéployez le projet (obligatoire après modification)</p>
         </div>
 
         <a
-          href="https://vercel.com/docs/projects/environment-variables"
+          href="https://docs.netlify.com/configure-builds/environment-variables/"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 text-netflix hover:underline text-sm font-medium"
         >
-          Documentation Vercel
+          Documentation Netlify
           <ExternalLink className="w-4 h-4" />
         </a>
 

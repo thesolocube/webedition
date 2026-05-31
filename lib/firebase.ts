@@ -26,7 +26,7 @@ function assertConfigured() {
   if (!isFirebaseConfigured()) {
     throw new Error(
       getFirebaseConfigErrorMessage() ??
-        "Configuration Firebase manquante. Ajoutez les variables NEXT_PUBLIC_FIREBASE_* sur Vercel puis redéployez."
+        "Configuration Firebase manquante. Ajoutez les variables NEXT_PUBLIC_FIREBASE_* dans Netlify → Site configuration → Environment Variables puis redéployez."
     );
   }
 }
